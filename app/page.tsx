@@ -55,8 +55,8 @@ const generateNeumernym = (word: string): string => {
     const letters: string[] = lettersMatch || [];
 
     if (letters.length < 4) {
-      let error1 = "To short to compress";
-      return error1;
+      let word = "To short to compress";
+      return word;
     }
 
     const first = letters[0];
