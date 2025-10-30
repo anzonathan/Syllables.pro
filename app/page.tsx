@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import { useState, useMemo } from 'react';
+import React, { useState } from 'react';
+
+// --- Type Definition ---
+interface AnalysisResults {
+  wordCount: number;
+  totalSyllables: number;
+  neumernymString: string;
+}
 
 // --- Analysis Logic (Implemented inside the component for single-file mandate) ---
 
@@ -10,16 +17,16 @@ import { useState, useMemo } from 'react';
  * This is not dictionary-accurate but serves as a functional prototype.
  * It counts contiguous groups of vowels (a, e, i, o, u, y) as syllables.
  */
-const countSyllables = (word) => {
-  word = word.toLowerCase().replace(/[^a-z]/g, "");
-  if (word.length === 0) return 0;
+const countSyllables = (word: string): number => {
+  let processedWord = word.toLowerCase().replace(/[^a-z]/g, "");
+  if (processedWord.length === 0) return 0;
 
   let count = 0;
   const vowels = "aeiouy";
   let isPrevVowel = false;
 
-  for (let i = 0; i < word.length; i++) {
-    const isVowel = vowels.includes(word[i]);
+  for (let i = 0; i < processedWord.length; i++) {
+    const isVowel = vowels.includes(processedWord[i]);
     if (isVowel && !isPrevVowel) {
       count++;
     }
@@ -27,7 +34,7 @@ const countSyllables = (word) => {
   }
 
   // Adjust for a common English rule: subtract 1 if the word ends in a silent 'e' and has more than 1 syllable
-  if (count > 1 && word.endsWith('e') && !word.endsWith('le')) {
+  if (count > 1 && processedWord.endsWith('e') && !processedWord.endsWith('le')) {
     count--;
   }
 
@@ -38,13 +45,15 @@ const countSyllables = (word) => {
 /**
  * Generates a neumernym (e.g., 'international' -> 'i11l') for longer words.
  */
-const generateNeumernym = (word) => {
+const generateNeumernym = (word: string): string => {
     if (word.length <= 4) {
         return word;
     }
     // Only compress if the word consists mainly of letters
-    const letters = word.match(/[a-zA-Z]/g);
-    if (!letters || letters.length < 4) {
+    const lettersMatch = word.match(/[a-zA-Z]/g);
+    const letters: string[] = lettersMatch || [];
+
+    if (letters.length < 4) {
       return word;
     }
 
@@ -57,24 +66,30 @@ const generateNeumernym = (word) => {
 // --- Main React Component ---
 
 export default function Home() {
-  const [textInput, setTextInput] = useState('');
-  const [results, setResults] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [textInput, setTextInput] = useState<string>('');
+  const [results, setResults] = useState<AnalysisResults | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleAnalyze = () => {
     setIsLoading(true);
-    // Simulate API call delay (optional, remove for instant response)
+
+    // Simulate API call delay
     setTimeout(() => {
         const input = textInput.trim();
-        const cleanedText = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ").replace(/\s{2,}/g, " ").toLowerCase();
-        // Match words that are not just whitespace
-        const words = cleanedText.match(/\b\w+\b/g) || [];
+        // Clean text: replace punctuation with space and consolidate multiple spaces, then lowercase
+        const cleanedText = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ")
+                                 .replace(/\s{2,}/g, " ")
+                                 .toLowerCase();
+        
+        // Extract words using regex boundary match
+        const wordsMatch = cleanedText.match(/\b\w+\b/g);
+        const words: string[] = wordsMatch || [];
 
-        const wordCount = words.length;
-        let totalSyllables = 0;
-        const neumernyms = [];
+        const wordCount: number = words.length;
+        let totalSyllables: number = 0;
+        const neumernyms: string[] = [];
 
-        words.forEach(word => {
+        words.forEach((word: string) => {
             totalSyllables += countSyllables(word);
             neumernyms.push(generateNeumernym(word));
         });
@@ -85,10 +100,10 @@ export default function Home() {
             neumernymString: neumernyms.join(' ')
         });
         setIsLoading(false);
-    }, 500); // 500ms delay to show loading state
+    }, 500);
   };
 
-  const isButtonDisabled = isLoading || textInput.trim().length === 0;
+  const isButtonDisabled: boolean = isLoading || textInput.trim().length === 0;
 
   return (
     <div className="flex min-h-screen items-start justify-center bg-gray-50 font-sans dark:bg-zinc-900 transition-colors p-4 sm:p-8">
@@ -96,7 +111,8 @@ export default function Home() {
 
         {/* Header */}
         <div className="flex flex-col items-center gap-3 text-center">
-            {/* Using Next.js logo as a temporary placeholder for a custom Syllables.pro logo 
+            {/* Using Next.js logo as a temporary placeholder for a custom Syllables.pro logo */}
+            {/*
             <Image
                 className="dark:invert mb-2"
                 src="/next.svg"
@@ -104,7 +120,8 @@ export default function Home() {
                 width={80}
                 height={16}
                 priority
-            />*/}
+            />
+            */}
             <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-black dark:text-zinc-50 sm:text-6xl">
                 Syllables.<span className="text-indigo-600 dark:text-indigo-400">pro</span>
             </h1>
@@ -123,7 +140,7 @@ export default function Home() {
                 className="w-full min-h-[150px] p-4 text-lg text-black dark:text-white bg-gray-100 dark:bg-zinc-700 border-2 border-indigo-200 dark:border-indigo-800 rounded-xl focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-600 focus:border-indigo-600 dark:focus:border-indigo-400 transition-all resize-y placeholder-zinc-500 dark:placeholder-zinc-400"
                 placeholder="Paste your poem, paragraph, or essay here..."
                 value={textInput}
-                onChange={(e) => setTextInput(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setTextInput(e.target.value)}
                 disabled={isLoading}
             />
 
