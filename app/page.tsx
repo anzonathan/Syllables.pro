@@ -108,11 +108,11 @@ export default function Home() {
   const isButtonDisabled: boolean = isLoading || textInput.trim().length === 0;
 
   return (
-    <div className="flex min-h-screen items-start justify-center bg-gray-50 font-sans dark:bg-zinc-900 transition-colors p-4 sm:p-8">
+    <div className="flex min-h-screen items-start justify-center font-sans  transition-colors p-4 sm:p-8">
       <main className="flex w-full max-w-4xl flex-col items-center gap-12 py-12 sm:py-20">
 
         {/* Header */}
-        <div className="flex justify-center py-12 px-4 bg-white dark:bg-gray-900">
+        <div className="flex justify-center py-12 px-4">
             <div className="max-w-2xl w-full text-left">
                 
                 {/* --- HEADER: Word and Pronunciation --- */}
@@ -129,7 +129,7 @@ export default function Home() {
                     </div>
                     
                     {/* Part of Speech */}
-                    <span className="text-lg font-semibold text-sky-700 dark:text-sky-500 mt-1 block">
+                    <span className="text-lg font-semibold text-purple-700 dark:text-purple-500 mt-1 block">
                         *noun*
                     </span>
                     
@@ -140,21 +140,17 @@ export default function Home() {
                 <section className="space-y-4">
                     {/* Definition 1 */}
                     <p className="text-xl leading-relaxed text-zinc-800 dark:text-zinc-200">
-                        <span className="font-bold mr-2 text-sky-700 dark:text-sky-500">1.</span> 
+                        <span className="font-bold mr-2 text-purple-700 dark:text-purple-500">1.</span> 
                         The **smallest unit of a word** that contains a vowel sound and may contain following consonants; it's the rhythmic division in poetry or spoken language
                         used to create rhythm and cadence.
                     </p>
                     
                     {/* Definition 2 / Usage Note */}
                     <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 mt-2 pl-6 border-l-4 border-gray-200 dark:border-gray-600">
-                        <span className="font-bold italic">— Usage:</span> For writers, poets, and others who engage with written expression, understanding syllables can help shape their work by dictating
-                        flow, meter, and overall tone of the piece.
+                        <span className="font-bold italic">— Usage:</span> Built for writers, for poets, for Michelle
                     </p>
 
-                    {/* Example / Etymology / Additional Note */}
-                    <p className="text-md leading-relaxed text-zinc-500 dark:text-zinc-500 pt-4 italic">
-                        <span className="font-bold">— See also:</span> For writers, for poets, for Michelle
-                    </p>
+              
                 </section>
                 
             </div>
