@@ -108,7 +108,10 @@ export default function Home() {
   const isButtonDisabled: boolean = isLoading || textInput.trim().length === 0;
 
   return (
+    
     <div className="flex min-h-screen items-start justify-center font-sans transition-colors p-4 sm:p-8">
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
       <main className="flex w-full max-w-4xl flex-col items-center gap-8 sm:gap-12 py-8 sm:py-20">
 
         {/* Header */}
