@@ -3,19 +3,20 @@
 import Image from "next/image";
 import React, { useState } from 'react';
 
-// --- Type Definition ---
+// Types
 interface AnalysisResults {
   wordCount: number;
   totalSyllables: number;
   neumernymString: string;
 }
 
-// --- Analysis Logic (Implemented inside the component for single-file mandate) ---
+// Logic
 
-/**
+/** 
  * A basic heuristic to count syllables in a word.
  * This is not dictionary-accurate but serves as a functional prototype.
  * It counts contiguous groups of vowels (a, e, i, o, u, y) as syllables.
+ * 
  */
 const countSyllables = (word: string): number => {
   let processedWord = word.toLowerCase().replace(/[^a-z]/g, "");
@@ -54,7 +55,8 @@ const generateNeumernym = (word: string): string => {
     const letters: string[] = lettersMatch || [];
 
     if (letters.length < 4) {
-      return word;
+      let error1 = "To short to compress";
+      return error1;
     }
 
     const first = letters[0];
@@ -63,7 +65,7 @@ const generateNeumernym = (word: string): string => {
     return `${first}${count}${last}`;
 };
 
-// --- Main React Component ---
+// Main component
 
 export default function Home() {
   const [textInput, setTextInput] = useState<string>('');
@@ -110,62 +112,99 @@ export default function Home() {
       <main className="flex w-full max-w-4xl flex-col items-center gap-12 py-12 sm:py-20">
 
         {/* Header */}
-        <div className="flex flex-col items-center gap-3 text-center">
-            {/* Using Next.js logo as a temporary placeholder for a custom Syllables.pro logo */}
-            {/*
-            <Image
-                className="dark:invert mb-2"
-                src="/next.svg"
-                alt="Syllables.pro Logo Placeholder"
-                width={80}
-                height={16}
-                priority
-            />
-            */}
-            <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-black dark:text-zinc-50 sm:text-6xl">
-                Syllables.<span className="text-indigo-600 dark:text-indigo-400">pro</span>
-            </h1>
-            <p className="max-w-xl text-lg leading-7 text-zinc-600 dark:text-zinc-400 mt-2">
-                For writers, for poets, for Michelle
-            </p>
-        </div>
-
-        {/* LLM-like Search Bar & Submission */}
-        <div className="w-full flex flex-col gap-4 bg-white dark:bg-zinc-800 p-6 sm:p-8 rounded-2xl shadow-xl transition-shadow hover:shadow-2xl border border-gray-200 dark:border-zinc-700">
-            <label htmlFor="text-input" className="text-lg font-semibold text-zinc-700 dark:text-zinc-200">
-                Input your text here (like an LLM prompt):
-            </label>
-            <textarea
-                id="text-input"
-                className="w-full min-h-[150px] p-4 text-lg text-black dark:text-white bg-gray-100 dark:bg-zinc-700 border-2 border-indigo-200 dark:border-indigo-800 rounded-xl focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-600 focus:border-indigo-600 dark:focus:border-indigo-400 transition-all resize-y placeholder-zinc-500 dark:placeholder-zinc-400"
-                placeholder="Paste your poem, paragraph, or essay here..."
-                value={textInput}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setTextInput(e.target.value)}
-                disabled={isLoading}
-            />
-
-            <button
-                className={`w-full sm:w-auto self-end px-8 py-3 text-lg font-bold rounded-xl transition-all shadow-lg focus:outline-none focus:ring-4 focus:ring-offset-2 ${
-                    isButtonDisabled
-                        ? 'bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-400 cursor-not-allowed'
-                        : 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:ring-indigo-400'
-                }`}
-                onClick={handleAnalyze}
-                disabled={isButtonDisabled}
-            >
-                {isLoading ? (
-                    <span className="flex items-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Analyzing...
+        <div className="flex justify-center py-12 px-4 bg-white dark:bg-gray-900">
+            <div className="max-w-2xl w-full text-left">
+                
+                {/* --- HEADER: Word and Pronunciation --- */}
+                <header className="mb-6">
+                    <div className="flex items-end gap-2">
+                        {/* The Main Word: Bold and Large */}
+                        <h1 className="text-4xl font-extrabold text-black dark:text-zinc-50 tracking-tight">
+                            **SYL**·LA·BLE
+                        </h1>
+                        {/* Pronunciation/Phonetics */}
+                        <span className="text-xl text-gray-500 dark:text-gray-400 font-serif italic">
+                            (sĭl'ə-bəl)
+                        </span>
+                    </div>
+                    
+                    {/* Part of Speech */}
+                    <span className="text-lg font-semibold text-sky-700 dark:text-sky-500 mt-1 block">
+                        *noun*
                     </span>
-                ) : (
-                    "Submit for Analysis"
-                )}
-            </button>
+                    
+                    <hr className="mt-3 border-t border-gray-300 dark:border-gray-700" />
+                </header>
+
+                {/* --- DEFINITION BLOCK --- */}
+                <section className="space-y-4">
+                    {/* Definition 1 */}
+                    <p className="text-xl leading-relaxed text-zinc-800 dark:text-zinc-200">
+                        <span className="font-bold mr-2 text-sky-700 dark:text-sky-500">1.</span> 
+                        The **smallest unit of a word** that contains a vowel sound and may contain following consonants; it's the rhythmic division in poetry or spoken language
+                        used to create rhythm and cadence.
+                    </p>
+                    
+                    {/* Definition 2 / Usage Note */}
+                    <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 mt-2 pl-6 border-l-4 border-gray-200 dark:border-gray-600">
+                        <span className="font-bold italic">— Usage:</span> For writers, poets, and others who engage with written expression, understanding syllables can help shape their work by dictating
+                        flow, meter, and overall tone of the piece.
+                    </p>
+
+                    {/* Example / Etymology / Additional Note */}
+                    <p className="text-md leading-relaxed text-zinc-500 dark:text-zinc-500 pt-4 italic">
+                        <span className="font-bold">— See also:</span> For writers, for poets, for Michelle
+                    </p>
+                </section>
+                
+            </div>
         </div>
+
+        {/* Search Bar & Submission */}
+        <div className="w-full flex flex-col gap-4   p-6 sm:p-8 ">
+            <h1 className="font-semibold">Input your text here</h1>
+            <div className="relative">
+              <textarea
+                  id="text-input"
+                  // min-height for chat-bar feel, max-height for responsive overflow
+                  // pr-16 ensures space for the submit button/icon
+                  className="w-full min-h-[100px] max-h-[250px] p-4 pr-16 text-lg text-zinc-900 dark:text-zinc-100 bg-gray-100 dark:bg-zinc-700 
+                             border-2 border-purple-300 dark:border-purple-700 rounded-xl 
+                             focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-600 
+                             focus:border-purple-600 dark:focus:border-purple-400 transition-all resize-y 
+                             placeholder-zinc-500 dark:placeholder-zinc-400 focus:shadow-lg focus:outline-none"
+                  placeholder="Paste your poem, paragraph, or essay here to analyze its word count, syllables, and neumernyms..."
+                  value={textInput}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setTextInput(e.target.value)}
+                  disabled={isLoading}
+              />
+              
+              {/* Submission Button positioned inside the textarea area, bottom right */}
+              <button
+                  className={`absolute bottom-3 right-3 p-2 rounded-full transition-all shadow-md focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-zinc-800 ${
+                      isButtonDisabled
+                          ? 'bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-400 cursor-not-allowed'
+                          : 'bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500 dark:bg-purple-500 dark:hover:bg-purple-600 dark:focus:ring-purple-400'
+                  }`}
+                  onClick={handleAnalyze}
+                  disabled={isButtonDisabled}
+              >
+                  {isLoading ? (
+                      // Spinner icon
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                  ) : (
+                      // Send Icon (from Lucide/Heroicons equivalent)
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                      </svg>
+                  )}
+              </button>
+            </div>
+        </div>
+
 
         {/* Results Display */}
         {results && (
@@ -206,7 +245,7 @@ export default function Home() {
                 {/* Neumernym Output */}
                 <div className="mt-4">
                     <h3 className="text-xl font-semibold text-zinc-700 dark:text-zinc-200 mb-3 flex items-center">
-                        Neumernym Compression (A11y/Initialism)
+                        Neumernym Compression =
                         <span className="ml-2 text-xs font-normal text-indigo-500 dark:text-indigo-400">(First Letter + Count + Last Letter)</span>
                     </h3>
                     <p className="p-4 bg-gray-100 dark:bg-zinc-700 text-black dark:text-white rounded-xl text-lg font-mono overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-indigo-400">
