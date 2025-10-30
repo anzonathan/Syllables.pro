@@ -259,14 +259,12 @@ export default function Home() {
               <br className="sm:hidden" />
               <span className="hidden sm:inline"> </span>
               Developed by{' '}
-              {/*<a href="https://nathanielmugenyi.com">
+              <a href="https://nathanielmugenyi.com">
                 <span className="underline font-semibold hover:text-purple-600 dark:hover:text-purple-400 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer inline-block">
                   Nathaniel Mugenyi
                 </span>
-              </a>*/}
-              <span className="underline font-semibold hover:text-purple-600 dark:hover:text-purple-400 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer inline-block">
-                  Nathaniel Mugenyi
-                </span>
+              </a>
+       
             </p>
           </div>
         </footer>
