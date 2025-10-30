@@ -108,28 +108,28 @@ export default function Home() {
   const isButtonDisabled: boolean = isLoading || textInput.trim().length === 0;
 
   return (
-    <div className="flex min-h-screen items-start justify-center font-sans  transition-colors p-4 sm:p-8">
-      <main className="flex w-full max-w-4xl flex-col items-center gap-12 py-12 sm:py-20">
+    <div className="flex min-h-screen items-start justify-center font-sans transition-colors p-4 sm:p-8">
+      <main className="flex w-full max-w-4xl flex-col items-center gap-8 sm:gap-12 py-8 sm:py-20">
 
         {/* Header */}
-        <div className="flex justify-center py-12 px-4">
+        <div className="flex justify-center py-8 sm:py-12 px-4 w-full">
             <div className="max-w-2xl w-full text-left">
                 
                 {/* --- HEADER: Word and Pronunciation --- */}
                 <header className="mb-6">
-                    <div className="flex items-end gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-end gap-1 sm:gap-2">
                         {/* The Main Word: Bold and Large */}
-                        <h1 className="text-4xl font-extrabold text-black dark:text-zinc-50 tracking-tight">
+                        <h1 className="text-3xl sm:text-4xl font-extrabold text-black dark:text-zinc-50 tracking-tight">
                             **SYL**·LA·BLE
                         </h1>
                         {/* Pronunciation/Phonetics */}
-                        <span className="text-xl text-gray-500 dark:text-gray-400 font-serif italic">
+                        <span className="text-lg sm:text-xl text-gray-500 dark:text-gray-400 font-serif italic">
                             (sĭl'ə-bəl)
                         </span>
                     </div>
                     
                     {/* Part of Speech */}
-                    <span className="text-lg font-semibold text-purple-700 dark:text-purple-500 mt-1 block">
+                    <span className="text-base sm:text-lg font-semibold text-purple-700 dark:text-purple-500 mt-1 block">
                         *noun*
                     </span>
                     
@@ -139,37 +139,33 @@ export default function Home() {
                 {/* --- DEFINITION BLOCK --- */}
                 <section className="space-y-4">
                     {/* Definition 1 */}
-                    <p className="text-xl leading-relaxed text-zinc-800 dark:text-zinc-200">
+                    <p className="text-lg sm:text-xl leading-relaxed text-zinc-800 dark:text-zinc-200">
                         <span className="font-bold mr-2 text-purple-700 dark:text-purple-500">1.</span> 
-                        The **smallest unit of a word** that contains a vowel sound and may contain following consonants; it's the rhythmic division in poetry or spoken language
+                        The <span className="font-bold">smallest unit of a word</span> that contains a vowel sound and may contain following consonants; it's the rhythmic division in poetry or spoken language
                         used to create rhythm and cadence.
                     </p>
                     
                     {/* Definition 2 / Usage Note */}
-                    <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 mt-2 pl-6 border-l-4 border-gray-200 dark:border-gray-600">
+                    <p className="text-base sm:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 mt-2 pl-4 sm:pl-6 border-l-4 border-gray-200 dark:border-gray-600">
                         <span className="font-bold italic">— Usage:</span> Built for writers, for poets, for Michelle
                     </p>
-
-              
                 </section>
                 
             </div>
         </div>
 
         {/* Search Bar & Submission */}
-        <div className="w-full flex flex-col gap-4   p-6 sm:p-8 ">
-            <h1 className="font-semibold">Input your text here</h1>
+        <div className="w-full flex flex-col gap-4 p-4 sm:p-6">
+            <h1 className="font-semibold text-base sm:text-lg">Input your text here</h1>
             <div className="relative">
               <textarea
                   id="text-input"
-                  // min-height for chat-bar feel, max-height for responsive overflow
-                  // pr-16 ensures space for the submit button/icon
-                  className="w-full min-h-[100px] max-h-[250px] p-4 pr-16 text-lg text-zinc-900 dark:text-zinc-100 bg-gray-100 dark:bg-zinc-700 
+                  className="w-full min-h-[100px] max-h-[250px] p-3 sm:p-4 pr-14 sm:pr-16 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 bg-gray-100 dark:bg-zinc-700 
                              border-2 border-purple-300 dark:border-purple-700 rounded-xl 
                              focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-600 
                              focus:border-purple-600 dark:focus:border-purple-400 transition-all resize-y 
                              placeholder-zinc-500 dark:placeholder-zinc-400 focus:shadow-lg focus:outline-none"
-                  placeholder="Paste your poem, paragraph, or essay here to analyze its word count, syllables, and neumernyms..."
+                  placeholder="Paste your poem, paragraph, or essay here to analyze..."
                   value={textInput}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setTextInput(e.target.value)}
                   disabled={isLoading}
@@ -186,13 +182,11 @@ export default function Home() {
                   disabled={isButtonDisabled}
               >
                   {isLoading ? (
-                      // Spinner icon
                       <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
                   ) : (
-                      // Send Icon (from Lucide/Heroicons equivalent)
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                       </svg>
@@ -204,67 +198,73 @@ export default function Home() {
 
         {/* Results Display */}
         {results && (
-          <div className="w-full flex flex-col gap-6 bg-white dark:bg-zinc-800 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-zinc-700">
-          <h2 className="text-3xl font-bold text-zinc-800 dark:text-zinc-100 mb-2">
-          Analysis Results
-          </h2>
+          <div className="w-full flex flex-col gap-6 bg-white dark:bg-zinc-800 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-zinc-700">
+            <h2 className="text-2xl sm:text-3xl font-bold text-zinc-800 dark:text-zinc-100 mb-2">
+              Analysis Results
+            </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Stat Card: Word Count */}
-          <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
-          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total</p>
-          <p className="text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
-          {results.wordCount.toLocaleString()}
-          </p>
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Words</p>
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+              {/* Stat Card: Word Count */}
+              <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total</p>
+                <p className="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
+                  {results.wordCount.toLocaleString()}
+                </p>
+                <p className="text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">Words</p>
+              </div>
 
-          {/* Stat Card: Syllable Count */}
-          <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
-          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Estimated</p>
-          <p className="text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
-          {results.totalSyllables.toLocaleString()}
-          </p>
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Syllables</p>
-          </div>
+              {/* Stat Card: Syllable Count */}
+              <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Estimated</p>
+                <p className="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
+                  {results.totalSyllables.toLocaleString()}
+                </p>
+                <p className="text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">Syllables</p>
+              </div>
 
-          {/* Stat Card: Average Syllables per Word */}
-          <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
-          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Average</p>
-          <p className="text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
-          {(results.totalSyllables / (results.wordCount || 1)).toFixed(2)}
-          </p>
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Syllables/Word</p>
-          </div>
-          </div>
-
-          {/* Neumernym Output */}
-          <div className="mt-4">
-          <h3 className="text-xl font-semibold text-zinc-700 dark:text-zinc-200 mb-3 flex items-center">
-          Neumernym Compression =
-          <span className="ml-2 text-xs font-normal text-gray-600 dark:text-gray-400">(First Letter + Count + Last Letter)</span>
-          </h3>
-          <p className="p-4 bg-gray-100 dark:bg-zinc-700 text-black dark:text-white rounded-xl text-lg font-mono overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-purple-400">
-          {results.neumernymString}
-          </p>
-          </div>
-
-          </div>
-          )}
-          <footer className="w-full py-6 mt-auto border-t border-gray-200 dark:border-zinc-700 ">
-            <div className="container mx-auto px-4">
-              <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                © {new Date().getFullYear()} Syllables.pro  All rights reserved.
-                <br/>Developed by <a  href="https://nathanielmugenyi.com"><span className="underline font-semibold hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">Nathaniel Mugenyi</span></a>
-              </p>
-             
+              {/* Stat Card: Average Syllables per Word */}
+              <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Average</p>
+                <p className="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
+                  {(results.totalSyllables / (results.wordCount || 1)).toFixed(2)}
+                </p>
+                <p className="text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">Syllables/Word</p>
+              </div>
             </div>
-          </footer>
-                </main>
 
-          
+            {/* Neumernym Output */}
+            <div className="mt-4">
+              <h3 className="text-lg sm:text-xl font-semibold text-zinc-700 dark:text-zinc-200 mb-3 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                <span>Neumernym Compression</span>
+                <span className="text-xs font-normal text-gray-600 dark:text-gray-400">
+                  (First Letter + Count + Last Letter)
+                </span>
+              </h3>
+              <div className="p-4 bg-gray-100 dark:bg-zinc-700 text-black dark:text-white rounded-xl overflow-x-auto">
+                <p className="text-base sm:text-lg font-mono whitespace-pre-wrap break-words">
+                  {results.neumernymString}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <footer className="w-full py-6 mt-auto border-t border-gray-200 dark:border-zinc-700">
+          <div className="container mx-auto px-4">
+            <p className="text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              © {new Date().getFullYear()} Syllables.pro All rights reserved.
+              <br className="sm:hidden" />
+              <span className="hidden sm:inline"> </span>
+              Developed by{' '}
+              <a href="https://nathanielmugenyi.com">
+                <span className="underline font-semibold hover:text-purple-600 dark:hover:text-purple-400 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer inline-block">
+                  Nathaniel Mugenyi
+                </span>
+              </a>
+            </p>
+          </div>
+        </footer>
+      </main>
     </div>
-
-
   );
 }
