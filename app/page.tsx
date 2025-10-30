@@ -204,54 +204,67 @@ export default function Home() {
 
         {/* Results Display */}
         {results && (
-            <div className="w-full flex flex-col gap-6 bg-white dark:bg-zinc-800 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-zinc-700">
-                <h2 className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">
-                    Analysis Results
-                </h2>
+          <div className="w-full flex flex-col gap-6 bg-white dark:bg-zinc-800 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-zinc-700">
+          <h2 className="text-3xl font-bold text-zinc-800 dark:text-zinc-100 mb-2">
+          Analysis Results
+          </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Stat Card: Word Count */}
-                    <div className="flex flex-col p-4 bg-indigo-50 dark:bg-indigo-900/40 rounded-xl shadow-md">
-                        <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Total</p>
-                        <p className="text-4xl font-extrabold text-indigo-800 dark:text-indigo-200 mt-1">
-                            {results.wordCount.toLocaleString()}
-                        </p>
-                        <p className="text-lg font-medium text-indigo-600 dark:text-indigo-300">Words</p>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Stat Card: Word Count */}
+          <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total</p>
+          <p className="text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
+          {results.wordCount.toLocaleString()}
+          </p>
+          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Words</p>
+          </div>
 
-                    {/* Stat Card: Syllable Count */}
-                    <div className="flex flex-col p-4 bg-indigo-50 dark:bg-indigo-900/40 rounded-xl shadow-md">
-                        <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Estimated</p>
-                        <p className="text-4xl font-extrabold text-indigo-800 dark:text-indigo-200 mt-1">
-                            {results.totalSyllables.toLocaleString()}
-                        </p>
-                        <p className="text-lg font-medium text-indigo-600 dark:text-indigo-300">Syllables</p>
-                    </div>
+          {/* Stat Card: Syllable Count */}
+          <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Estimated</p>
+          <p className="text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
+          {results.totalSyllables.toLocaleString()}
+          </p>
+          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Syllables</p>
+          </div>
 
-                    {/* Stat Card: Average Syllables per Word */}
-                    <div className="flex flex-col p-4 bg-indigo-50 dark:bg-indigo-900/40 rounded-xl shadow-md">
-                        <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Average</p>
-                        <p className="text-4xl font-extrabold text-indigo-800 dark:text-indigo-200 mt-1">
-                            {(results.totalSyllables / (results.wordCount || 1)).toFixed(2)}
-                        </p>
-                        <p className="text-lg font-medium text-indigo-600 dark:text-indigo-300">Syllables/Word</p>
-                    </div>
-                </div>
+          {/* Stat Card: Average Syllables per Word */}
+          <div className="flex flex-col p-4 bg-gray-50 dark:bg-zinc-700/50 rounded-xl shadow-md border border-gray-200 dark:border-zinc-600">
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Average</p>
+          <p className="text-4xl font-extrabold text-purple-600 dark:text-purple-400 mt-1">
+          {(results.totalSyllables / (results.wordCount || 1)).toFixed(2)}
+          </p>
+          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Syllables/Word</p>
+          </div>
+          </div>
 
-                {/* Neumernym Output */}
-                <div className="mt-4">
-                    <h3 className="text-xl font-semibold text-zinc-700 dark:text-zinc-200 mb-3 flex items-center">
-                        Neumernym Compression =
-                        <span className="ml-2 text-xs font-normal text-indigo-500 dark:text-indigo-400">(First Letter + Count + Last Letter)</span>
-                    </h3>
-                    <p className="p-4 bg-gray-100 dark:bg-zinc-700 text-black dark:text-white rounded-xl text-lg font-mono overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-indigo-400">
-                        {results.neumernymString}
-                    </p>
-                </div>
+          {/* Neumernym Output */}
+          <div className="mt-4">
+          <h3 className="text-xl font-semibold text-zinc-700 dark:text-zinc-200 mb-3 flex items-center">
+          Neumernym Compression =
+          <span className="ml-2 text-xs font-normal text-gray-600 dark:text-gray-400">(First Letter + Count + Last Letter)</span>
+          </h3>
+          <p className="p-4 bg-gray-100 dark:bg-zinc-700 text-black dark:text-white rounded-xl text-lg font-mono overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-purple-400">
+          {results.neumernymString}
+          </p>
+          </div>
 
+          </div>
+          )}
+          <footer className="w-full py-6 mt-auto border-t border-gray-200 dark:border-zinc-700 ">
+            <div className="container mx-auto px-4">
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+                © {new Date().getFullYear()} Syllables.pro  All rights reserved.
+                <br/>Developed by <a  href="https://nathanielmugenyi.com"><span className="underline font-semibold hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">Nathaniel Mugenyi</span></a>
+              </p>
+             
             </div>
-        )}
-      </main>
+          </footer>
+                </main>
+
+          
     </div>
+
+
   );
 }
